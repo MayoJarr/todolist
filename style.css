@@ -57,6 +57,8 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: scroll;
+  padding: 0;
 }
 .sidebar {
   grid-area: sidebar;
@@ -64,10 +66,12 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 0;
 }
 .addProject, .addTask{
   /* border-top: 1px solid var(--foreground-dimmed); */
   text-align: center;
+  background: #202020;
 }
 .task {
   padding: 5px;
@@ -78,6 +82,9 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.task2{
+  display: flex;
 }
 .taskCreationMenu {
   position: absolute;
@@ -127,6 +134,17 @@ input {
   background: var(--bg);
   display: none;
   border-radius: 10px;
+}
+.circle{
+  border: 1px solid var(--foreground);
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+}
+.check{
+  outline: none;
+  border: none;
+  background: #500;
 }
 @media screen and (max-width: 1000px) {
   .sidebar {
