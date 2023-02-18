@@ -4,13 +4,12 @@
   --foreground: #f0f0f0;
   --foreground-dimmed: #bbb;
   --accent: #3e8194;
-  /* --bg: #33333f; */
-  --bg: #535360;
+  --bg: #33333f;
 }
 body {
   font-family: 'JetBrains Mono';
   margin: 0;
-  padding: 2vh;
+  padding: 1vh;
   color: var(--foreground);
   /* background: var(--foreground-dimmed); */
   background: var(--bg)
@@ -27,30 +26,32 @@ button:hover {
   color: var(--foreground-dimmed);
 }
 .container {
-  height: 96vh;
+  height: 98vh;
   display: grid;
-  grid-template: 7% 91% / 18% 80%;
+  grid-template: 5% 94% / 19% 80%;
   grid-template-areas: 
   "nav nav"
   "sidebar content";
-  grid-gap: 2%;
-  z-index: 5;
+  grid-gap: 1%;
 }
 .panel {
   background: var(--background);
-  border-radius: 15px;
+  /* border-radius: 15px; */
   padding: 10px;
-  box-shadow: 0px 0px 5px 1px #000;
 }
 nav {
   grid-area: nav;
-  font-size: 25px;
+  font-size: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 .add {
   font-size: 40px;
+}@media screen and (max-width: 1000px) {
+  .sidebar {
+    display: none;
+  }
 }
 .content {
   grid-area: content;
@@ -75,9 +76,6 @@ nav {
   /* border: 1px solid var(--foreground-dimmed);
   border-radius: 5px; */
   border-bottom: 1px solid var(--foreground-dimmed);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 .taskCreationMenu {
   position: absolute;
@@ -92,22 +90,17 @@ nav {
   opacity: 0;
   display: none;
   transition: 1s;
-  box-shadow: 0px 0px 5px 1px #000;
-  border-radius: 10px;
 }
 .fade{
   opacity: 1;
-  display: flex;
 }
-/* .taskCreationMenu > input{ */
-input {
+.taskCreationMenu > input{
   border: none;
   background: var(--background);
   margin: 5px;
   padding: 10px;
   font-size: 15px;
   outline: none;
-  border-radius: 10px;
 }
 .radios{
   font-size: 15px;
@@ -115,18 +108,6 @@ input {
   background: var(--background);
   margin: 5px;
   padding: 5px;
-  border-radius: 10px;
-}
-.deleteBtn {
-  margin: 0 10px;
-}
-.projectMenu{
-  position: absolute;
-  left: 2%;
-  bottom: 11%;
-  background: var(--bg);
-  display: none;
-  border-radius: 10px;
 }
 @media screen and (max-width: 1000px) {
   .sidebar {

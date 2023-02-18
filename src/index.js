@@ -1,1 +1,3 @@
-console.log("hi");
+import UI from "./dom";
+
+UI.init();

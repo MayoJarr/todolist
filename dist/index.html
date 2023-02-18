@@ -1,14 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todo List</title>
-  <script src="main.js" defer></script>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="panel">
+        <p>Todo List</p>
+        <!-- <button class="add">+</button> -->
+      </nav>
+      <div class="content panel">
+        <div class="tasks">
+        </div>
+        <div class="addTask">
+          <button class="add addTaskBtn">+</button>
+        </div>
+      </div>
+      <div class="sidebar panel">
+        <div class="projects">
+          <!-- <ul>
+            <li><button>Home</button></li>
+            <li><button>Today</button></li>
+            <li><button>Week</button></li>
+            <li>Projects:</li> -->
+            <ul class="project">
+              <li>project1</li>
+              <li>project2</li>
+              <!-- <li><button class="add">+</button></li> -->
+            </ul>
+          <!-- </ul> -->
+        </div>
+        <div class="addProject">
+          <button class="add addProjectBtn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="taskCreationMenu">
+      <!-- <form name="form" action=""> -->
+        Create a task <br />
+        <input type="text"  class="title" placeholder="title" />
+        <input type="text" class="desc" placeholder="description" />
+        <input type="date" class="date" placeholder="date" />
+        <!-- <input type="radio" id="low">
+        <input type="radio" id="medium">
+        <input type="radio" id="high"> -->
+        <div class="radios">
+          Piority: <br />
+          <!--   <input type="radio" id="html" name="low" value="low" />  
+          <label for="html">low</label><br />
+            <input type="radio" id="css" name="medium" value="medium" />  
+          <label for="css">medium</label><br />
+           
+          <input   type="radio" id="javascript" name="high" value="high" />
+            <label for="javascript">high</label> -->
+          <!-- <input type="checkbox" class="low" value="low">
+          <input type="checkbox" class="medium" value="medium">
+          <input type="checkbox" class="high" value="high"> -->
+          <input type="text" class="piority">
+        </div>
+        <input class="submit" type="submit" value="submit" />
+      <!-- </form> -->
+    </div>
+    <div class="projectMenu">
+      <div>
+        Project name:
+        <input type="text" class="projectName" placeholder="project name">
+        <input type="submit" value="submit" class="projectSubmit">
+      </div>
+    </div>
+  </body>
 </html>
