@@ -13,6 +13,9 @@ const ProjectManager = (() => {
     // projects[projectIndex].push(item);
     getProject(projectIndex).name.push(item);
   }
+  function removeTask(projectIndex, itemIndex){
+    getProject(projectIndex).name.splice(itemIndex, 1);
+  }
   return { addProject, getProjects, getProject, addTask };
 })();
 
