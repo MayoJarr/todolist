@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+:root {
+  --background: #101010;
+  --foreground: #f0f0f0;
+  --foreground-dimmed: #bbb;
+  --accent: #3e8194;
+  /* --bg: #33333f; */
+  --bg: #535360;
+}
+body {
+  font-family: 'JetBrains Mono';
+  margin: 0;
+  padding: 2vh;
+  color: var(--foreground);
+  /* background: var(--foreground-dimmed); */
+  background: var(--bg)
+}
+button {
+  border: none;
+  background: none;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+button:hover {
+  color: var(--foreground-dimmed);
+}
+.container {
+  height: 96vh;
+  display: grid;
+  grid-template: 7% 91% / 18% 80%;
+  grid-template-areas: 
+  "nav nav"
+  "sidebar content";
+  grid-gap: 2%;
+  z-index: 5;
+}
+.panel {
+  background: var(--background);
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0px 0px 5px 1px #000;
+}
+nav {
+  grid-area: nav;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add {
+  font-size: 40px;
+}
+.content {
+  grid-area: content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.sidebar {
+  grid-area: sidebar;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.addProject, .addTask{
+  /* border-top: 1px solid var(--foreground-dimmed); */
+  text-align: center;
+}
+.task {
+  padding: 5px;
+  margin: 15px;
+  /* border: 1px solid var(--foreground-dimmed);
+  border-radius: 5px; */
+  border-bottom: 1px solid var(--foreground-dimmed);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.taskCreationMenu {
+  position: absolute;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg);
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+  opacity: 0;
+  display: none;
+  transition: 1s;
+  box-shadow: 0px 0px 5px 1px #000;
+  border-radius: 10px;
+}
+.fade{
+  opacity: 1;
+  display: flex;
+}
+/* .taskCreationMenu > input{ */
+input {
+  border: none;
+  background: var(--background);
+  margin: 5px;
+  padding: 10px;
+  font-size: 15px;
+  outline: none;
+  border-radius: 10px;
+}
+.radios{
+  font-size: 15px;
+  text-align: left;
+  background: var(--background);
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+}
+.deleteBtn {
+  margin: 0 10px;
+}
+.projectMenu{
+  position: absolute;
+  left: 2%;
+  bottom: 11%;
+  background: var(--bg);
+  display: none;
+  border-radius: 10px;
+}
+@media screen and (max-width: 1000px) {
+  .sidebar {
+    display: none;
+  }
+  .container {
+    grid-template-areas: 
+    "nav nav"
+    "content content";
+  }
+}
