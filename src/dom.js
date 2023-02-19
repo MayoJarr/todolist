@@ -12,7 +12,8 @@ const UI = (() => {
   const container = document.querySelector(".container");
   const projectMenu = document.querySelector(".projectMenu");
   const projectSubmit = document.querySelector(".projectSubmit");
-
+  const overlay = document.querySelector(".overlay");
+  
   function createTask(titleV, descV, dateV, piorityV) {
     const task = document.createElement("div");
     const task2 = document.createElement("div");
@@ -78,12 +79,12 @@ const UI = (() => {
   }
 
   function showMenu() {
-    menu.style.cssText = "display: flex;";
     menu.classList.add("fade");
+    overlay.classList.add("overlayActive");
   }
   function hideMenu() {
-    menu.style.cssText = "display: none;";
     menu.classList.remove("fade");
+    overlay.classList.remove("overlayActive");
   }
   function getFormValues(name) {
     return document.querySelector(`.${name}`).value;
@@ -96,6 +97,7 @@ const UI = (() => {
       if (project.classList.contains("active")) {
         // console.log(`current project is ${project.classList} and it has number of ${cpp}`);
         score = cpp;
+        
       }
       cpp = cpp + 1;
     });
@@ -108,11 +110,6 @@ const UI = (() => {
     });
   }
   function renderTasks(project) {
-    console.log(
-      `this task goes to: ${
-        ProjectManager.getProject(project).projectName
-      }`
-    );
     tasks.textContent = "";
     const taskList = ProjectManager.getProject(project).name;
     taskList.forEach((item, index) => {
@@ -120,17 +117,13 @@ const UI = (() => {
       createTask(item.title, item.desc, item.dueDate, item.piority);
     });
   }
-  function menuu() {
-    menu.classList.toggle("fade");
-  }
-  // function toggleProjectMenu(){
-  //   projectMenu.classList.toggle("fade");
-  // }
   function showProjectMenu() {
-    projectMenu.style.cssText = "display: block";
+    projectMenu.classList.add("projectMenuActive");
+    overlay.classList.add("overlayActive");
   }
   function hideProjectmenu() {
-    projectMenu.style.cssText = "display: none";
+    projectMenu.classList.remove("projectMenuActive");
+    overlay.classList.remove("overlayActive");
   }
   function setDefaultProject(){
     const defaultProject = document.querySelector(".Home")
@@ -147,10 +140,10 @@ const UI = (() => {
 
     setDefaultProject();
 
-    addTask.addEventListener("click", () => menuu());
+    addTask.addEventListener("click", () => showMenu());
     submit.addEventListener("click", () => {
-      // hideMenu();
-      menuu();
+      hideMenu();
+      // menuu();
       ProjectManager.addTask(
         currentProject(),
         new Task(
@@ -163,13 +156,15 @@ const UI = (() => {
       renderTasks(currentProject());
     });
     addProject.addEventListener("click", () => {
-      // toggleProjectMenu();
       showProjectMenu();
     });
-    // container.addEventListener("click", () => menuu());
     projectSubmit.addEventListener("click", () => {
       ProjectManager.addProject(new Project(getFormValues("projectName")));
       renderProjects();
+      hideProjectmenu();
+    });
+    overlay.addEventListener("click", () => {
+      hideMenu()
       hideProjectmenu();
     });
   }
