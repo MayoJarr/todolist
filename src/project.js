@@ -16,7 +16,7 @@ const ProjectManager = (() => {
   function removeTask(projectIndex, itemIndex){
     getProject(projectIndex).name.splice(itemIndex, 1);
   }
-  return { addProject, getProjects, getProject, addTask };
+  return { addProject, getProjects, getProject, addTask, removeTask };
 })();
 
 class Project {
@@ -24,14 +24,21 @@ class Project {
     this.projectName = projectName;
   }
   name = [];
-  addItemToProject(item) {
-    this.name.push(item);
+  getProjectName() {
+    return this.projectName;
   }
   getProjectItems() {
     return this.name;
   }
-  getProjectName() {
-    return this.projectName;
+  getProjectTask(index) {
+    return this.name[index];
+  }
+  removeTaskByIndex(taskName){
+    let i;
+    this.name.forEach((element, index) => {
+     if(element.title === taskName) i = index;
+    });
+    this.name.splice(i, 1);
   }
 }
 

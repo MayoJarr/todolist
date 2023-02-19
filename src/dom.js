@@ -13,8 +13,9 @@ const UI = (() => {
   const projectMenu = document.querySelector(".projectMenu");
   const projectSubmit = document.querySelector(".projectSubmit");
   const overlay = document.querySelector(".overlay");
-  
-  function createTask(titleV, descV, dateV, piorityV) {
+  const expandedTask = document.querySelector(".expandedTask");
+
+  function createTask(taskObj) {
     const task = document.createElement("div");
     const task2 = document.createElement("div");
     const task3 = document.createElement("div");
@@ -28,20 +29,18 @@ const UI = (() => {
     const radio = document.createElement("input");
     radio.type = "checkbox";
     radio.classList.add("check");
-    // const circle = document.createElement("div")
     task.classList.add("task");
     deleteBtn.classList.add("deleteBtn");
     task2.classList.add("task2");
-    // circle.classList.add("circle")
-    title.textContent = titleV;
-    date.textContent = dateV;
+    task3.classList.add("task3");
+    title.textContent = taskObj.title;
+    date.textContent = taskObj.dueDate;
     deleteBtn.textContent = " del";
     editBtn.textContent = "edit ";
     tasks.appendChild(task);
-    // task.appendChild(circle);
     task.appendChild(task2);
     task2.appendChild(radio);
-    task2.appendChild(task3)
+    task2.appendChild(task3);
     task3.appendChild(title);
     task3.appendChild(date);
     task3.appendChild(desc);
@@ -49,6 +48,54 @@ const UI = (() => {
     task.appendChild(buttons);
     buttons.appendChild(editBtn);
     buttons.appendChild(deleteBtn);
+
+    editBtn.addEventListener("click", () => editTask(taskObj));
+    deleteBtn.addEventListener("click", () => deleteTask(taskObj));
+    radio.addEventListener("click", () => changeCompleteStatus(taskObj));
+    task3.addEventListener("click", () => expand(taskObj));
+    if (taskObj.complete === false) {
+      title.style.cssText = "text-decoration: none;";
+      task.style.cssText = "opacity: 1";
+    } else if (taskObj.complete === true) {
+      title.style.cssText = "text-decoration-line: line-through;";
+      task.style.cssText = "opacity: .5";
+    }
+  }
+  function expand(task) {
+    const title = document.querySelector(".title1");
+    const date = document.querySelector(".date1");
+    const desc = document.querySelector(".desc1");
+    const piority = document.querySelector(".piority1");
+    title.textContent = task.title;
+    date.textContent = task.dueDate;
+    desc.textContent = task.desc;
+    piority.textContent = task.piority;
+    show(expandedTask, "expandedTaskActive");
+  }
+  function show(thingName, activeThingName) {
+    thingName.classList.add(activeThingName);
+    overlay.classList.add("overlayActive");
+    container.style.cssText = "filter: blur(2px);";
+  }
+  function hide(thingName, activeThingName) {
+    thingName.classList.remove(activeThingName);
+    overlay.classList.remove("overlayActive");
+    container.style.cssText = "filter: none;";
+  }
+  function editTask(taskObj) {
+    taskObj.edit("editedTitle", "desc");
+    renderTasks(currentProject());
+  }
+  function deleteTask(taskObj) {
+    ProjectManager.getProject(currentProject()).removeTaskByIndex(
+      taskObj.title
+    );
+    renderTasks(currentProject());
+  }
+  function changeCompleteStatus(taskObj) {
+    if (taskObj.complete === false) taskObj.setDone();
+    else if (taskObj.complete === true) taskObj.setUnDone();
+    renderTasks(currentProject());
   }
   function createProject(project) {
     const ul = document.querySelector(".project");
@@ -69,22 +116,13 @@ const UI = (() => {
   }
   function setActiveButton(button) {
     const buttons = document.querySelectorAll(".button-nav");
-    
+
     buttons.forEach((button) => {
       if (button !== this) {
         button.classList.remove("active");
       }
     });
     button.classList.add("active");
-  }
-
-  function showMenu() {
-    menu.classList.add("fade");
-    overlay.classList.add("overlayActive");
-  }
-  function hideMenu() {
-    menu.classList.remove("fade");
-    overlay.classList.remove("overlayActive");
   }
   function getFormValues(name) {
     return document.querySelector(`.${name}`).value;
@@ -95,9 +133,7 @@ const UI = (() => {
     let score = 0;
     projects.forEach((project) => {
       if (project.classList.contains("active")) {
-        // console.log(`current project is ${project.classList} and it has number of ${cpp}`);
         score = cpp;
-        
       }
       cpp = cpp + 1;
     });
@@ -113,20 +149,11 @@ const UI = (() => {
     tasks.textContent = "";
     const taskList = ProjectManager.getProject(project).name;
     taskList.forEach((item, index) => {
-      console.log(item.title);
-      createTask(item.title, item.desc, item.dueDate, item.piority);
+      createTask(ProjectManager.getProject(project).getProjectTask(index));
     });
   }
-  function showProjectMenu() {
-    projectMenu.classList.add("projectMenuActive");
-    overlay.classList.add("overlayActive");
-  }
-  function hideProjectmenu() {
-    projectMenu.classList.remove("projectMenuActive");
-    overlay.classList.remove("overlayActive");
-  }
-  function setDefaultProject(){
-    const defaultProject = document.querySelector(".Home")
+  function setDefaultProject() {
+    const defaultProject = document.querySelector(".Home");
     setActiveButton(defaultProject);
   }
   function init() {
@@ -140,10 +167,10 @@ const UI = (() => {
 
     setDefaultProject();
 
-    addTask.addEventListener("click", () => showMenu());
-    submit.addEventListener("click", () => {
-      hideMenu();
-      // menuu();
+    addTask.addEventListener("click", () => show(menu, "fade"));
+    submit.addEventListener("click", (e) => {
+      e.preventDefault();
+      hide(menu, "fade");
       ProjectManager.addTask(
         currentProject(),
         new Task(
@@ -156,16 +183,18 @@ const UI = (() => {
       renderTasks(currentProject());
     });
     addProject.addEventListener("click", () => {
-      showProjectMenu();
+      show(projectMenu, "projectMenuActive");
     });
-    projectSubmit.addEventListener("click", () => {
+    projectSubmit.addEventListener("click", (e) => {
+      e.preventDefault();
       ProjectManager.addProject(new Project(getFormValues("projectName")));
       renderProjects();
-      hideProjectmenu();
+      hide(projectMenu, "projectMenuActive");
     });
     overlay.addEventListener("click", () => {
-      hideMenu()
-      hideProjectmenu();
+      hide(menu, "fade");
+      hide(projectMenu, "projectMenuActive");
+      hide(expandedTask, "expandedTaskActive");
     });
   }
   return { init };

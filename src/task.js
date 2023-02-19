@@ -6,12 +6,15 @@ class Task {
     this.piority = piority;
   }
   complete = false;
-  edit(title, desc) {
-    this.title = title;
-    this.desc = desc;
+  edit(tit, des) {
+    this.title = tit;
+    this.desc = des;
   }
   setDone() {
     this.complete = true;
+  }
+  setUnDone() {
+    this.complete = false;
   }
 }
 export default Task;
