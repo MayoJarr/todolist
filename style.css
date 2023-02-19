@@ -91,22 +91,20 @@ nav {
   flex-direction: column;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0);
   background: var(--bg);
   padding: 20px;
   text-align: center;
   font-size: 20px;
-  opacity: 0;
-  display: none;
-  transition: 1s;
+  display: flex;
+  transition: .2s ease-in-out;
   box-shadow: 0px 0px 5px 1px #000;
   border-radius: 10px;
+  z-index: 10;
 }
 .fade{
-  opacity: 1;
-  display: flex;
+  transform: translate(-50%, -50%) scale(1);
 }
-/* .taskCreationMenu > input{ */
 input {
   border: none;
   background: var(--background);
@@ -129,11 +127,17 @@ input {
 }
 .projectMenu{
   position: absolute;
-  left: 2%;
-  bottom: 11%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
   background: var(--bg);
-  display: none;
   border-radius: 10px;
+  display: flex;
+  z-index: 10;
+  transition: .2s ease-in-out;
+}
+.projectMenuActive{
+  transform: translate(-50%, -50%) scale(1);
 }
 .circle{
   border: 1px solid var(--foreground);
@@ -145,6 +149,24 @@ input {
   outline: none;
   border: none;
   background: #500;
+}
+.active {
+  border-bottom: 1px solid var(--foreground-dimmed);
+}
+.overlay{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, .7);
+  pointer-events: none;
+  opacity: 0;
+  transition: .2s ease-in-out;
+}
+.overlayActive{
+  pointer-events: all;
+  opacity: 1;
 }
 @media screen and (max-width: 1000px) {
   .sidebar {
