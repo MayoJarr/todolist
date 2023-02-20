@@ -6,9 +6,11 @@ class Task {
     this.piority = piority;
   }
   complete = false;
-  edit(tit, des) {
-    this.title = tit;
-    this.desc = des;
+  edit(title, desc, date, piority) {
+    this.title = title;
+    this.desc = desc;
+    this.dueDate = date;
+    this.piority = piority;
   }
   setDone() {
     this.complete = true;

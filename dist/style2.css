@@ -1,26 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
 :root {
-  --background: #101010;
-  --foreground: #fff;
+  --background: #eee;
+  --foreground: #101010;
   --foreground-dimmed: #bbb;
   --accent: #3e8194;
-  /* --bg: #33333f; */
-  --bg: #535360;
-  /* --bg: #ccc; */
-  --background-lighter: #202020;
-  --shadow: #000;
+  --bg: #ddd;
+  --background-lighter: #fff;
+  --background-dimmed: #ddd
+  --shadow: #888;
 }
 body {
   font-family: 'JetBrains Mono';
   margin: 0;
-  padding: 2vh;
   color: var(--foreground);
-  /* background: var(--foreground-dimmed); */
   background: var(--bg)  
-  /* background-image: url(img/bE5LWe9pEPW3tyCjf-mhw6sXN4X1im7gk4iJovDOq40-3048358433.jpg); */
-  /* background-image: url(img/wp4411792-277723843.jpg); */
-  /* background-size: cover; */
-}
+  }
 button {
   border: none;
   background: none;
@@ -30,23 +24,19 @@ button {
   cursor: pointer;
 }
 button:hover {
-  color: var(--foreground-dimmed);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0.1)) ;
 }
 .container {
-  height: 96vh;
+  height: 100vh;
   display: grid;
-  grid-template: 7% 91% / 18% 80%;
+  grid-template: 7% 93% / 20% 80%;
   grid-template-areas: 
   "nav nav"
   "sidebar content";
-  grid-gap: 2%;
   z-index: 5;
 }
 .panel {
-  background: var(--background);
-  border-radius: 15px;
   padding: 10px;
-  box-shadow: 0px 0px 1px 1px var(--shadow);
 }
 nav {
   grid-area: nav;
@@ -54,17 +44,18 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: var(--accent);
+  color: var(--background)
 }
 .add {
   font-size: 40px;
 }
 .content {
   grid-area: content;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   overflow: scroll;
   padding: 0;
+  background: var(--background);
+  position: relative;
 }
 .sidebar {
   grid-area: sidebar;
@@ -73,17 +64,18 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   padding: 0;
+  background: var(--background-dimmed);
+  position: relative;
 }
 .addProject, .addTask{
-  /* border-top: 1px solid var(--foreground-dimmed); */
   text-align: center;
-  background: var(--background-lighter);
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
 }
 .task {
   padding: 5px;
   margin: 15px;
-  /* border: 1px solid var(--foreground-dimmed);
-  border-radius: 5px; */
   border-bottom: 1px solid var(--foreground-dimmed);
   display: flex;
   justify-content: space-between;
@@ -158,7 +150,8 @@ input {
   background: #500;
 }
 .active {
-  border-bottom: 1px solid var(--foreground-dimmed);
+  background: #3e819474;
+  border-left: 3px solid var(--accent);
 }
 .overlay{
   position: fixed;
@@ -181,12 +174,31 @@ input {
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   background: var(--bg);
-  padding: 10px;
+  padding: 20px;
   z-index: 10;
   transition: .2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 1px var(--shadow);
+  width: 30%;
 }
 .expandedTaskActive {
   transform: translate(-50%, -50%) scale(1);
+}
+.et, .ti{
+  background: var(--background);
+  margin: 5px;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 10px;
+}
+.ti{
+  background: none;
+}
+.idk{
+  display: flex;
 }
 .task3{
   border-left: 3px solid red;
@@ -194,6 +206,35 @@ input {
 }
 .task3:hover{
   color: var(--accent);
+}
+.projectTitle {
+  padding: 2% 10%;
+  font-size: 25px;
+}
+.button-nav{
+  padding: 5px 20px;
+}
+li{
+  display:block;
+}
+input[type=submit]{
+  cursor: pointer;
+}
+input[type=submit]:hover{
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0.1)) ;
+}
+.taskInfoDataEditable > input{
+  margin: 3px;
+  width: 200px;
+}
+.taskInfoDataEditable{
+  display: none;
+}
+.taskInfoData {
+  /* display: none */
+}
+.et{
+  width: 200px;
 }
 @media screen and (max-width: 1000px) {
   .sidebar {

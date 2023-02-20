@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo List</title>
     <script src="main.js" defer></script>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style2.css" />
   </head>
   <body>
     <div class="container">
@@ -14,47 +14,65 @@
         <p>Todo List</p>
       </nav>
       <div class="content panel">
-        <div class="tasks">
-        </div>
+        <div class="projectTitle">Home</div>
+        <div class="tasks"></div>
         <div class="addTask">
           <button class="add addTaskBtn">+</button>
         </div>
       </div>
       <div class="sidebar panel">
         <div class="projects">
-            <ul class="project">
-              <li>project1</li>
-              <li>project2</li>
-            </ul>
+          <ul class="project">
+            <li>project1</li>
+            <li>project2</li>
+          </ul>
         </div>
         <div class="addProject">
           <button class="add addProjectBtn">+</button>
         </div>
       </div>
     </div>
-      <form class="taskCreationMenu" name="form" action="">
-        Create a task <br />
-        <input type="text"  class="title" placeholder="title" />
-        <input type="text" class="desc" placeholder="description" />
-        <input type="date" class="date" placeholder="date" />
-        <div class="radios">
-          Piority: <br />
-          <input type="text" class="piority">
-        </div>
-        <input class="submit" type="submit" value="submit" />
-      </form>
+    <form class="taskCreationMenu" name="form" action="">
+      Create a task <br />
+      <input type="text" class="title" placeholder="title" />
+      <input type="text" class="desc" placeholder="description" />
+      <input type="date" class="date" placeholder="date" />
+      <div class="radios">
+        Piority: <br />
+        <input type="text" class="piority" />
+      </div>
+      <input class="submit" type="submit" value="submit" />
+    </form>
     <div class="projectMenu">
       <form>
         Project name:
-        <input type="text" class="projectName" placeholder="project name">
-        <input type="submit" value="submit" class="projectSubmit">
+        <input type="text" class="projectName" placeholder="project name" />
+        <input type="submit" value="submit" class="projectSubmit" />
       </form>
     </div>
     <div class="expandedTask">
-      <div class="title1"></div>
-      <div class="date1"></div>
-      <div class="desc1"></div>
-      <div class="piority1"></div>
+      Task Info:
+      <div class="idk">
+        <div class="taskInfo">
+          <div class="ti">Title:</div>
+          <div class="ti">Due date:</div>
+          <div class="ti">Description:</div>
+          <div class="ti">Piority:</div>
+        </div>
+        <div class="taskInfoData">
+          <div class="title1 et"></div>
+          <div class="date1 et"></div>
+          <div class="desc1 et"></div>
+          <div class="piority1 et"></div>
+        </div>
+        <form class="taskInfoDataEditable">
+          <input type="text" class="suckt">
+          <input type="date" class="suckdd">
+          <input type="text" class="suckd">
+          <input type="text" class="suckp">
+          <input class="submitEdit" type="submit" value="submit">
+        </form>
+      </div>
       <button class="edit">edit</button>
     </div>
     <div class="overlay"></div>
