@@ -1,5 +1,5 @@
 const ProjectManager = (() => {
-  const projects = [];
+  let projects = [];
   function addProject(project) {
     projects.push(project);
   }
@@ -16,7 +16,17 @@ const ProjectManager = (() => {
   function removeTask(projectIndex, itemIndex){
     getProject(projectIndex).name.splice(itemIndex, 1);
   }
-  return { addProject, getProjects, getProject, addTask, removeTask };
+  function deleteProject(projectTitle){
+    let i;
+    projects.forEach((element, index) => {
+      if (element.getProjectName() === projectTitle) i = index;
+    });
+    projects.splice(i, 1);
+  }
+  function setProjects(newProjects){
+    projects = newProjects;
+  }
+  return { addProject, getProjects, getProject, addTask, removeTask, deleteProject, setProjects };
 })();
 
 class Project {

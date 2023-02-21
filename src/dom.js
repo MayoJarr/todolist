@@ -36,7 +36,9 @@ const UI = (() => {
     task3.classList.add("task3");
     title.textContent = taskObj.title;
     date.textContent = taskObj.dueDate;
-    deleteBtn.textContent = " del";
+    // deleteBtn.textContent = " del";
+    deleteBtn.innerHTML =
+      '<img src="img/trash.svg" style="width: 25px; height: 25px;">';
     // editBtn.textContent = "edit ";
     tasks.appendChild(task);
     task.appendChild(task2);
@@ -63,10 +65,13 @@ const UI = (() => {
     }
     setPiorityColor(taskObj.piority, task3);
   }
-  function setPiorityColor(taskPiority, item){
-    if (taskPiority === "low") item.style.cssText = "border-left: 3px solid green"
-    if (taskPiority === "medium") item.style.cssText = "border-left: 3px solid orange"
-    if (taskPiority === "high") item.style.cssText = "border-left: 3px solid red"
+  function setPiorityColor(taskPiority, item) {
+    if (taskPiority === "low")
+      item.style.cssText = "border-left: 3px solid green";
+    if (taskPiority === "medium")
+      item.style.cssText = "border-left: 3px solid orange";
+    if (taskPiority === "high")
+      item.style.cssText = "border-left: 3px solid red";
   }
   function expand(task) {
     const title = document.querySelector(".title1");
@@ -80,7 +85,7 @@ const UI = (() => {
     show(expandedTask, "expandedTaskActive");
     const edit = document.querySelector(".edit");
     edit.style.cssText = "display:block;";
-    edit.addEventListener("click", () => editTask(task))
+    edit.addEventListener("click", () => editTask(task));
   }
   function show(thingName, activeThingName) {
     thingName.classList.add(activeThingName);
@@ -102,8 +107,8 @@ const UI = (() => {
     const submitEdit = document.querySelector(".submitEdit");
     submitEdit.addEventListener("click", (e) => {
       e.preventDefault();
-      closeEditMenu()
-      task.edit(suckt.value, suckd.value, suckdd.value, suckp.value)
+      closeEditMenu();
+      task.edit(suckt.value, suckd.value, suckdd.value, suckp.value);
       renderTasks(currentProject());
       hide(expandedTask, "expandedTaskActive");
     });
@@ -116,11 +121,11 @@ const UI = (() => {
     suckd.value = task.desc;
     suckp.value = task.piority;
   }
-  function closeEditMenu(){
+  function closeEditMenu() {
     const ti = document.querySelector(".taskInfoData");
     const tiE = document.querySelector(".taskInfoDataEditable");
     ti.style.cssText = "display: block;";
-    tiE.style.cssText = "display: none;";   
+    tiE.style.cssText = "display: none;";
   }
   function deleteTask(taskObj) {
     ProjectManager.getProject(currentProject()).removeTaskByIndex(
@@ -133,15 +138,24 @@ const UI = (() => {
     else if (taskObj.complete === true) taskObj.setUnDone();
     renderTasks(currentProject());
   }
+  function deleteProject(project) {
+    ProjectManager.deleteProject(project.getProjectName());
+    renderProjects();
+  }
   function createProject(project) {
     const ul = document.querySelector(".project");
     const li = document.createElement("LI");
     const projectt = document.createElement("button");
+    const del = document.createElement("button");
     projectt.textContent = project.getProjectName();
+    // del.textContent = "/"
+    del.innerHTML =
+      '<img src="img/trash.svg" style="width: 25px; height: 25px;">';
     projectt.classList.add(project.getProjectName());
     projectt.classList.add("button-nav");
     ul.appendChild(li);
     li.appendChild(projectt);
+    projectt.appendChild(del);
     projectt.addEventListener("click", (e) => {
       if (e.target.classList.contains("active")) return;
       console.log(`${project.getProjectName()} is clicked`);
@@ -149,6 +163,10 @@ const UI = (() => {
       tasks.textContent = "";
       renderTasks(currentProject());
     });
+    del.addEventListener("click", () => deleteProject(project));
+    setDefaultProject(project.getProjectName());
+    renderTasks(currentProject());
+    // addToLocalStorage(project.getProjectName(), project);
   }
   function setActiveButton(button) {
     const buttons = document.querySelectorAll(".button-nav");
@@ -187,26 +205,89 @@ const UI = (() => {
     taskList.forEach((item, index) => {
       createTask(ProjectManager.getProject(project).getProjectTask(index));
     });
-    projectTitle.textContent = ProjectManager.getProject(currentProject()).getProjectName();
+    projectTitle.textContent = ProjectManager.getProject(
+      currentProject()
+    ).getProjectName();
+    addToLocalStorage("projects", ProjectManager.getProjects());
+    // console.log(ProjectManager.getProjects());
   }
   function setDefaultProject(project) {
     const defaultProject = document.querySelector(`.${project}`);
     setActiveButton(defaultProject);
   }
-  function init() {
-    const home = new Project("Home");
-    const today = new Project("Today");
-    const week = new Project("Week");
-    ProjectManager.addProject(home);
-    ProjectManager.addProject(today);
-    ProjectManager.addProject(week);
+  function storage() {
+    function storageAvailable(type) {
+      let storage;
+      try {
+        storage = window[type];
+        const x = "__storage_test__";
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+      } catch (e) {
+        return (
+          e instanceof DOMException &&
+          (e.code === 22 ||
+            e.code === 1014 ||
+            e.name === "QuotaExceededError" ||
+            e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
+          storage &&
+          storage.length !== 0
+        );
+      }
+    }
+    if (storageAvailable("localStorage")) {
+      console.log("localstorage right here");
+      if (localStorage.length < 1) {
+        console.log("storage empty");
+        const home = new Project("Home");
+        const today = new Project("Today");
+        const week = new Project("Week");
+        ProjectManager.addProject(home);
+        ProjectManager.addProject(today);
+        ProjectManager.addProject(week);
+        renderProjects();
+        setDefaultProject("Home");
+        ProjectManager.addTask(
+          currentProject(),
+          new Task("task1", "desc", "20-02-2023", "low")
+        );
+        ProjectManager.addTask(
+          currentProject(),
+          new Task("task2", "desc", "20-02-2023", "medium")
+        );
+        ProjectManager.addTask(
+          currentProject(),
+          new Task("task3", "desc", "20-02-2023", "high")
+        );
+        renderTasks(currentProject());
+      } else {
+        console.log("storage not empty");
+        loadFromStorage();
+      }
+    } else {
+      alert("no localstorage avaible :(");
+    }
+  }
+  function addToLocalStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+  function loadFromStorage() {
+    const storageItem = JSON.parse(localStorage.getItem("projects"));
+    storageItem.forEach((project, index) => {
+      ProjectManager.addProject(new Project(storageItem[index].projectName));
+      project.name.forEach((task, i, array) => {
+        ProjectManager.addTask(
+          index,
+          new Task(task.title, task.dueDate, task.desc, task.piority)
+        );
+      });
+      renderTasks(index);
+    });
     renderProjects();
-
-    setDefaultProject("Home");
-    ProjectManager.addTask(currentProject(), new Task("task1", "desc", "20-02-2023", "low"))
-    ProjectManager.addTask(currentProject(), new Task("task2", "desc", "20-02-2023", "medium"))
-    ProjectManager.addTask(currentProject(), new Task("task3", "desc", "20-02-2023", "high"))
-    renderTasks(currentProject());
+  }
+  function init() {
+   storage();
 
     addTask.addEventListener("click", () => show(menu, "fade"));
     submit.addEventListener("click", (e) => {
@@ -238,6 +319,7 @@ const UI = (() => {
       hide(expandedTask, "expandedTaskActive");
       closeEditMenu();
     });
+    addToLocalStorage("projects", ProjectManager.getProjects());
   }
   return { init };
 })();
