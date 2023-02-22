@@ -239,6 +239,16 @@ const UI = (() => {
     if (storageAvailable("localStorage")) {
       console.log("localstorage right here");
       if (localStorage.length < 1) {
+        loadDefaultOptions();
+      } else {
+        console.log("storage not empty");
+        loadFromStorage();
+      }
+    } else {
+      alert("no localstorage avaible :(");
+    }
+  }
+  function loadDefaultOptions(){
         console.log("storage empty");
         const home = new Project("Home");
         const today = new Project("Today");
@@ -261,13 +271,6 @@ const UI = (() => {
           new Task("task3", "desc", "20-02-2023", "high")
         );
         renderTasks(currentProject());
-      } else {
-        console.log("storage not empty");
-        loadFromStorage();
-      }
-    } else {
-      alert("no localstorage avaible :(");
-    }
   }
   function addToLocalStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
