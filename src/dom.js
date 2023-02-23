@@ -248,29 +248,29 @@ const UI = (() => {
       alert("no localstorage avaible :(");
     }
   }
-  function loadDefaultOptions(){
-        console.log("storage empty");
-        const home = new Project("Home");
-        const today = new Project("Today");
-        const week = new Project("Week");
-        ProjectManager.addProject(home);
-        ProjectManager.addProject(today);
-        ProjectManager.addProject(week);
-        renderProjects();
-        setDefaultProject("Home");
-        ProjectManager.addTask(
-          currentProject(),
-          new Task("task1", "desc", "20-02-2023", "low")
-        );
-        ProjectManager.addTask(
-          currentProject(),
-          new Task("task2", "desc", "20-02-2023", "medium")
-        );
-        ProjectManager.addTask(
-          currentProject(),
-          new Task("task3", "desc", "20-02-2023", "high")
-        );
-        renderTasks(currentProject());
+  function loadDefaultOptions() {
+    console.log("storage empty");
+    const home = new Project("Home");
+    const today = new Project("Today");
+    const week = new Project("Week");
+    ProjectManager.addProject(home);
+    ProjectManager.addProject(today);
+    ProjectManager.addProject(week);
+    renderProjects();
+    setDefaultProject("Home");
+    ProjectManager.addTask(
+      currentProject(),
+      new Task("task1", "desc", "20-02-2023", "low")
+    );
+    ProjectManager.addTask(
+      currentProject(),
+      new Task("task2", "desc", "20-02-2023", "medium")
+    );
+    ProjectManager.addTask(
+      currentProject(),
+      new Task("task3", "desc", "20-02-2023", "high")
+    );
+    renderTasks(currentProject());
   }
   function addToLocalStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
@@ -289,8 +289,15 @@ const UI = (() => {
     });
     renderProjects();
   }
+  function sideMenu() {
+    const sideMenuBtn = document.querySelector(".sideMenuBtn");
+    const sideMenu = document.querySelector(".sidebar");
+    sideMenuBtn.addEventListener("click", () => {
+      sideMenu.classList.toggle("show");
+    });
+  }
   function init() {
-   storage();
+    storage();
 
     addTask.addEventListener("click", () => show(menu, "fade"));
     submit.addEventListener("click", (e) => {
@@ -303,10 +310,10 @@ const UI = (() => {
           getFormValues("desc"),
           getFormValues("date"),
           getFormValues("piority")
-        )
-      );
-      renderTasks(currentProject());
-    });
+          )
+          );
+          renderTasks(currentProject());
+        });
     addProject.addEventListener("click", () => {
       show(projectMenu, "projectMenuActive");
     });
@@ -323,6 +330,7 @@ const UI = (() => {
       closeEditMenu();
     });
     addToLocalStorage("projects", ProjectManager.getProjects());
+    sideMenu();
   }
   return { init };
 })();

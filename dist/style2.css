@@ -232,9 +232,27 @@ input[type="submit"]:hover {
 .project {
   padding: 10px;
 }
+.sideMenuBtn{
+  position: absolute;
+  left: 5%;
+  display: none;
+  z-index: 15;
+}
 @media screen and (max-width: 1000px) {
   .sidebar {
-    display: none;
+    position: absolute;
+    left: -250px;
+    top: 0;
+    transition: .2s ease-in-out;
+    height: 100%;
+    width: 250px;
+    padding-top: 20px;
+  }
+  .show{
+    left: 0px;
+  }
+  .sideMenuBtn{
+    display: block;
   }
   .container {
     grid-template-areas:
