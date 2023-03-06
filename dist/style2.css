@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 :root {
   --foreground-dimmed: #bbb;
   --accent: #3e8194;
@@ -7,7 +8,8 @@
   --foreground: #dddad6;
 }
 body {
-  font-family: "JetBrains Mono";
+  /* font-family: "JetBrains Mono"; */
+  font-family: Roboto;
   margin: 0;
   color: var(--foreground);
   background: var(--background);
@@ -71,7 +73,7 @@ nav {
 .addTask {
   text-align: center;
   position: absolute;
-  bottom: 0px;
+  bottom: 5%;
   width: 100%;
 }
 .task {
@@ -115,14 +117,14 @@ input {
   border-radius: 10px;
   color: var(--foreground);
 }
-.radios {
-  /* font-size: 15px; */
-  /* text-align: left; */
-  /* background: var(--background); */
-  /* margin: 5px; */
-  /* padding: 5px; */
-  /* border-radius: 10px; */
-}
+/* .radios {
+  font-size: 15px;
+  text-align: left;
+  background: var(--background);
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+} */
 .deleteBtn {
   margin: 0 10px;
 }
