@@ -1,8 +1,6 @@
 import { Project, ProjectManager } from "./project";
 import Task from "./task";
 const UI = (() => {
-  const side = document.querySelector(".sidebar");
-  const content = document.querySelector(".content");
   const menu = document.querySelector(".taskCreationMenu");
   const submit = document.querySelector(".submit");
   const addProject = document.querySelector(".addProjectBtn");
@@ -26,7 +24,6 @@ const UI = (() => {
     const piority = document.createElement("div");
     const buttons = document.createElement("div");
     const deleteBtn = document.createElement("button");
-    // const editBtn = document.createElement("button");
     const radio = document.createElement("input");
     radio.type = "checkbox";
     radio.classList.add("check");
@@ -36,10 +33,8 @@ const UI = (() => {
     task3.classList.add("task3");
     title.textContent = taskObj.title;
     date.textContent = taskObj.dueDate;
-    // deleteBtn.textContent = " del";
     deleteBtn.innerHTML =
       '<img src="img/trash.svg" style="width: 25px; height: 25px;">';
-    // editBtn.textContent = "edit ";
     tasks.appendChild(task);
     task.appendChild(task2);
     task2.appendChild(radio);
@@ -49,10 +44,7 @@ const UI = (() => {
     task3.appendChild(desc);
     task3.appendChild(piority);
     task.appendChild(buttons);
-    // buttons.appendChild(editBtn);
     buttons.appendChild(deleteBtn);
-
-    // editBtn.addEventListener("click", () => editTask(taskObj));
     deleteBtn.addEventListener("click", () => deleteTask(taskObj));
     radio.addEventListener("click", () => changeCompleteStatus(taskObj));
     task3.addEventListener("click", () => expand(taskObj));
@@ -157,6 +149,8 @@ const UI = (() => {
     li.appendChild(projectt);
     projectt.appendChild(del);
     projectt.addEventListener("click", (e) => {
+      const sideMenu = document.querySelector(".sidebar");
+      sideMenu.classList.toggle("show");
       if (e.target.classList.contains("active")) return;
       console.log(`${project.getProjectName()} is clicked`);
       setActiveButton(projectt);
@@ -170,7 +164,6 @@ const UI = (() => {
   }
   function setActiveButton(button) {
     const buttons = document.querySelectorAll(".button-nav");
-
     buttons.forEach((button) => {
       if (button !== this) {
         button.classList.remove("active");
@@ -257,7 +250,6 @@ const UI = (() => {
     ProjectManager.addProject(today);
     ProjectManager.addProject(week);
     renderProjects();
-    setDefaultProject("Home");
     ProjectManager.addTask(
       currentProject(),
       new Task("task1", "desc", "20-02-2023", "low")
@@ -271,6 +263,7 @@ const UI = (() => {
       new Task("task3", "desc", "20-02-2023", "high")
     );
     renderTasks(currentProject());
+    setDefaultProject("Home");
   }
   function addToLocalStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
@@ -294,6 +287,7 @@ const UI = (() => {
     const sideMenu = document.querySelector(".sidebar");
     sideMenuBtn.addEventListener("click", () => {
       sideMenu.classList.toggle("show");
+      // overlay.classList.toggle("overlayActive");
     });
   }
   function init() {
@@ -310,10 +304,10 @@ const UI = (() => {
           getFormValues("desc"),
           getFormValues("date"),
           getFormValues("piority")
-          )
-          );
-          renderTasks(currentProject());
-        });
+        )
+      );
+      renderTasks(currentProject());
+    });
     addProject.addEventListener("click", () => {
       show(projectMenu, "projectMenuActive");
     });
