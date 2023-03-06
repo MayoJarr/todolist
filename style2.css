@@ -116,12 +116,12 @@ input {
   color: var(--foreground);
 }
 .radios {
-  font-size: 15px;
-  text-align: left;
-  background: var(--background);
-  margin: 5px;
-  padding: 5px;
-  border-radius: 10px;
+  /* font-size: 15px; */
+  /* text-align: left; */
+  /* background: var(--background); */
+  /* margin: 5px; */
+  /* padding: 5px; */
+  /* border-radius: 10px; */
 }
 .deleteBtn {
   margin: 0 10px;
@@ -244,7 +244,7 @@ input[type="submit"]:hover {
     left: -250px;
     top: 0;
     transition: .2s ease-in-out;
-    height: 100%;
+    height: 97vh;
     width: 250px;
     padding-top: 20px;
   }
