@@ -117,14 +117,10 @@ input {
   border-radius: 10px;
   color: var(--foreground);
 }
-/* .radios {
-  font-size: 15px;
+.radios {
   text-align: left;
-  background: var(--background);
-  margin: 5px;
-  padding: 5px;
-  border-radius: 10px;
-} */
+  font-size: 15px;
+}
 .deleteBtn {
   margin: 0 10px;
 }
@@ -239,6 +235,18 @@ input[type="submit"]:hover {
   left: 5%;
   display: none;
   z-index: 15;
+}
+.radioBtn{
+  border: none;
+  background: red;
+  height: 20px;
+}
+.radoiContainer input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
 }
 @media screen and (max-width: 1000px) {
   .sidebar {
