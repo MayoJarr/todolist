@@ -252,15 +252,15 @@ const UI = (() => {
     renderProjects();
     ProjectManager.addTask(
       currentProject(),
-      new Task("task1", "desc", "20-02-2023", "low")
+      new Task("task1", "desc", "20-02-2023", "low", false)
     );
     ProjectManager.addTask(
       currentProject(),
-      new Task("task2", "desc", "20-02-2023", "medium")
+      new Task("task2", "desc", "20-02-2023", "medium", false)
     );
     ProjectManager.addTask(
       currentProject(),
-      new Task("task3", "desc", "20-02-2023", "high")
+      new Task("task3", "desc", "20-02-2023", "high", false)
     );
     renderTasks(currentProject());
     setDefaultProject("Home");
@@ -275,7 +275,7 @@ const UI = (() => {
       project.name.forEach((task, i, array) => {
         ProjectManager.addTask(
           index,
-          new Task(task.title, task.dueDate, task.desc, task.piority)
+          new Task(task.title, task.desc, task.dueDate, task.piority, task.complete)
         );
       });
       renderTasks(index);
@@ -291,7 +291,7 @@ const UI = (() => {
     });
   }
   function init() {
-    storage();
+    storage();  
 
     addTask.addEventListener("click", () => show(menu, "fade"));
     submit.addEventListener("click", (e) => {
@@ -303,7 +303,8 @@ const UI = (() => {
           getFormValues("title"),
           getFormValues("desc"),
           getFormValues("date"),
-          getFormValues("piority")
+          document.querySelector('input[name="fav_language"]:checked').value,
+          false
         )
       );
       renderTasks(currentProject());

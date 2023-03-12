@@ -1,11 +1,11 @@
 class Task {
-  constructor(title, desc, dueDate, piority) {
+  constructor(title, desc, dueDate, piority, complete) {
     this.title = title;
     this.desc = desc;
     this.dueDate = dueDate;
     this.piority = piority;
+    this.complete = complete;
   }
-  complete = false;
   edit(title, desc, date, piority) {
     this.title = title;
     this.desc = desc;
